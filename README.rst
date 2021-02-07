@@ -27,12 +27,10 @@ BTC, BTG, BCH, ETH, LTC, DASH and DOGE cryptocurrencies.
 
 Most of the code here is forked from:
 
-- Steven Buss's `Bitmerchant <https://github.com/sbuss/bitmerchant>`_ (original)
-- BlockIo's `multimerchant-python <https://github.com/BlockIo/multimerchant-python>`_ (fork of Bitmerchant)
-- Michail Brynard's `Ethereum BIP44 Python <https://github.com/michailbrynard/ethereum-bip44-python>`_
+- Ran Aroussi's `<https://github.com/ranaroussi/pywallet>`
+- 21dotco `two1 <https://github.com/21dotco/two1-python>`
 
-I simply added support for a few more cryptocurrencies (BCH, BTG, DASH), as well as created
-methods to simplify the creation of HD wallets and child wallets.
+We simply remove dependency on two1
 
 Enjoy!
 
@@ -45,7 +43,7 @@ Install via PiP:
 
 .. code:: bash
 
-   $ sudo pip install pywallet
+   $ pip3 install git+https://github.com/Coinkudi/pywallet.git#egg=pywallet
 
 
 Example code:
