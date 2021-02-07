@@ -1,20 +1,6 @@
 
-PyWallet
+CK Wallet
 ===========
-
-.. image:: https://img.shields.io/pypi/pyversions/pywallet.svg?maxAge=60
-    :target: https://pypi.python.org/pypi/pywallet
-    :alt: Python version
-
-.. image:: https://img.shields.io/pypi/v/pywallet.svg?maxAge=60
-    :target: https://pypi.python.org/pypi/pywallet
-    :alt: PyPi version
-
-.. image:: https://img.shields.io/pypi/status/pywallet.svg?maxAge=60
-    :target: https://pypi.python.org/pypi/pywallet
-    :alt: PyPi status
-
-\
 
 **Simple BIP32 (HD) wallet creation for: BTC, BTG, BCH, ETH, LTC, DASH, DOGE**
 
