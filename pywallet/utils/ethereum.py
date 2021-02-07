@@ -9,20 +9,19 @@ This submodule provides the PublicKey, PrivateKey, and Signature classes.
 It also provides HDPublicKey and HDPrivateKey classes for working with HD
 wallets."""
 
+import os
 import math
+import codecs
+import random
 import base58
 import base64
 import binascii
 import hashlib
 import hmac
 from mnemonic.mnemonic import Mnemonic
-import random
-from two1.bitcoin.utils import bytes_to_str
-from two1.bitcoin.utils import address_to_key_hash
-from two1.bitcoin.utils import rand_bytes
-from two1.crypto.ecdsa_base import Point
-from two1.crypto.ecdsa import ECPointAffine
-from two1.crypto.ecdsa import secp256k1
+from pywallet.crypto.ecdsa_base import Point
+from pywallet.crypto.ecdsa import ECPointAffine
+from pywallet.crypto.ecdsa import secp256k1
 
 bitcoin_curve = secp256k1()
 
@@ -169,7 +168,7 @@ class PrivateKeyBase(object):
         Returns:
            str: A hex encoded string representing the key.
         """
-        return bytes_to_str(bytes(self))
+        return codecs.encode(bytes(self), 'hex_codec').decode('ascii')
 
     def __bytes__(self):
         raise NotImplementedError
@@ -270,7 +269,7 @@ class PublicKeyBase(object):
         Returns:
             h (str): A hex-encoded string.
         """
-        return bytes_to_str(bytes(self))
+        return codecs.encode(bytes(self), 'hex_codec').decode('ascii')
 
     def __bytes__(self):
         raise NotImplementedError
@@ -691,7 +690,10 @@ class PublicKey(PublicKeyBase):
         if derived_public_key is None:
             raise ValueError("Could not recover public key from the provided signature.")
 
-        ver, h160 = address_to_key_hash(address)
+        n = base58.b58decode_check(address)
+        version = n[0]
+        h160 = n[1:]
+
         hash160 = derived_public_key.hash160(compressed)
         if hash160 != h160:
             return False
@@ -986,7 +988,7 @@ class Signature(object):
         Returns:
             str: A hex-encoded string.
         """
-        return bytes_to_str(bytes(self))
+        return codecs.encode(bytes(self), 'hex_codec').decode('ascii')
 
     def to_base64(self):
         """ Hex representation of the serialized byte stream.
@@ -1317,7 +1319,8 @@ class HDPrivateKey(HDKey, PrivateKeyBase):
             raise ValueError("strength must be a multiple of 32")
         if strength < 128 or strength > 256:
             raise ValueError("strength should be >= 128 and <= 256")
-        entropy = rand_bytes(strength // 8)
+
+        entropy = os.urandom(strength // 8)
         m = Mnemonic(language='english')
         n = m.to_mnemonic(entropy)
         return HDPrivateKey.master_key_from_seed(

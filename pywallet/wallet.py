@@ -28,20 +28,20 @@ def create_address(network='btctest', xpub=None, child=None, path=0):
     if child is None:
         child = generate_child_id()
 
-    if network == 'ethereum' or network.upper() == 'ETH':
+    if network.lower() in ('ethereum', 'eth'):
         acct_pub_key = HDKey.from_b58check(xpub)
 
         keys = HDKey.from_path(
             acct_pub_key, '{change}/{index}'.format(change=path, index=child))
 
         res = {
-            "path": "m/" + str(acct_pub_key.index) + "/" + str(keys[-1].index),
-            "bip32_path": "m/44'/60'/0'/" + str(acct_pub_key.index) + "/" + str(keys[-1].index),
-            "address": keys[-1].address()
+            'path': 'm/' + str(acct_pub_key.index) + '/' + str(keys[-1].index),
+            'bip32_path': 'm/44'/60'/0'/' + str(acct_pub_key.index) + '/' + str(keys[-1].index),
+            'address': keys[-1].address()
         }
 
-        if inspect.stack()[1][3] == "create_wallet":
-            res["xpublic_key"] = keys[-1].to_b58check()
+        if inspect.stack()[1][3] == 'create_wallet':
+            res['xpublic_key'] = keys[-1].to_b58check()
 
         return res
 
@@ -52,46 +52,46 @@ def create_address(network='btctest', xpub=None, child=None, path=0):
     net = get_network(network)
 
     return {
-        "path": "m/" + str(wallet_obj.child_number) + "/" +str(child_wallet.child_number),
-        "bip32_path": net.BIP32_PATH + str(wallet_obj.child_number) + "/" +str(child_wallet.child_number),
-        "address": child_wallet.to_address(),
-        # "xpublic_key": child_wallet.serialize_b58(private=False),
-        # "wif": child_wallet.export_to_wif() # needs private key
+        'path': 'm/' + str(wallet_obj.child_number) + '/' +str(child_wallet.child_number),
+        'bip32_path': net.BIP32_PATH + str(wallet_obj.child_number) + '/' +str(child_wallet.child_number),
+        'address': child_wallet.to_address(),
+        # 'xpublic_key': child_wallet.serialize_b58(private=False),
+        # 'wif': child_wallet.export_to_wif() # needs private key
     }
 
 
 def get_network(network='btctest'):
     network = network.lower()
 
-    if network == "bitcoin_testnet" or network == "btctest":
+    if network in ('bitcoin_testnet', 'btctest'):
         return BitcoinTestNet
-    elif network == "bitcoin" or network == "btc":
+    elif network in ('bitcoin', 'btc'):
         return BitcoinMainNet
-    elif network == "dogecoin" or network == "doge":
+    elif network in ('dogecoin', 'doge'):
         return DogecoinMainNet
-    elif network == "dogecoin_testnet" or network == "dogetest":
+    elif network in ('dogecoin_testnet', 'dogetest'):
         return DogecoinTestNet
-    elif network == "litecoin" or network == "ltc":
+    elif network in ('litecoin', 'ltc'):
         return LitecoinMainNet
-    elif network == "litecoin_testnet" or network == "ltctest":
+    elif network in ('litecoin_testnet' in 'ltctest'):
         return LitecoinTestNet
-    elif network == "bitcoin_cash" or network == "bch":
+    elif network in ('bitcoin_cash', 'bch'):
         return BitcoinCashMainNet
-    elif network == "bitcoin_gold" or network == "btg":
+    elif network in ('bitcoin_gold', 'btg'):
         return BitcoinGoldMainNet
-    elif network == "dash":
+    elif network == 'dash':
         return DashMainNet
-    elif network == "dash_testnet" or network == 'dashtest':
+    elif network in ('dash_testnet', 'dashtest'):
         return DashTestNet
     elif network == 'omni':
         return OmniMainNet
     elif network == 'omni_testnet':
         return OmniTestNet
-    elif network == "feathercoin" or network == 'ftc':
+    elif network in ('feathercoin', 'ftc'):
         return FeathercoinMainNet
-    elif network == "qtum":
+    elif network == 'qtum':
         return QtumMainNet
-    elif network == "qtum_testnet" or network == "qtumtest":
+    elif network in ('qtum_testnet', 'qtumtest'):
         return QtumTestNet
 
     return BitcoinTestNet
@@ -104,48 +104,48 @@ def create_wallet(network='btctest', seed=None, children=1):
 
     net = get_network(network)
     wallet = {
-        "coin": net.COIN,
-        "seed": seed,
-        "private_key": "",
-        "public_key": "",
-        "xprivate_key": "",
-        "xpublic_key": "",
-        "address": "",
-        "wif": "",
-        "children": []
+        'coin': net.COIN,
+        'seed': seed,
+        'private_key': '',
+        'public_key': '',
+        'xprivate_key': '',
+        'xpublic_key': '',
+        'address': '',
+        'wif': '',
+        'children': []
     }
 
-    if network == 'ethereum' or network.upper() == 'ETH':
-        wallet["coin"] = "ETH"
+    if network.lower() in ('ethereum', 'eth'):
+        wallet['coin'] = 'ETH'
 
         master_key = HDPrivateKey.master_key_from_mnemonic(seed)
-        root_keys = HDKey.from_path(master_key, "m/44'/60'/0'")
+        root_keys = HDKey.from_path(master_key, 'm/44'/60'/0'')
 
         acct_priv_key = root_keys[-1]
         acct_pub_key = acct_priv_key.public_key
 
-        wallet["private_key"] = acct_priv_key.to_hex()
-        wallet["public_key"] = acct_pub_key.to_hex()
-        wallet["xprivate_key"] = acct_priv_key.to_b58check()
-        wallet["xpublic_key"] = acct_pub_key.to_b58check()
+        wallet['private_key'] = acct_priv_key.to_hex()
+        wallet['public_key'] = acct_pub_key.to_hex()
+        wallet['xprivate_key'] = acct_priv_key.to_b58check()
+        wallet['xpublic_key'] = acct_pub_key.to_b58check()
 
         child_wallet = create_address(
-            network=network.upper(), xpub=wallet["xpublic_key"],
+            network=network.upper(), xpub=wallet['xpublic_key'],
             child=0, path=0)
-        wallet["address"] = child_wallet["address"]
-        wallet["xpublic_key_prime"] = child_wallet["xpublic_key"]
+        wallet['address'] = child_wallet['address']
+        wallet['xpublic_key_prime'] = child_wallet['xpublic_key']
 
         # get public info from first prime child
         for child in range(children):
             child_wallet = create_address(
-                network=network.upper(), xpub=wallet["xpublic_key"],
+                network=network.upper(), xpub=wallet['xpublic_key'],
                 child=child, path=0
             )
-            wallet["children"].append({
-                "address": child_wallet["address"],
-                "xpublic_key": child_wallet["xpublic_key"],
-                "path": "m/" + str(child),
-                "bip32_path": "m/44'/60'/0'/" + str(child),
+            wallet['children'].append({
+                'address': child_wallet['address'],
+                'xpublic_key': child_wallet['xpublic_key'],
+                'path': 'm/' + str(child),
+                'bip32_path': 'm/44'/60'/0'/' + str(child),
             })
 
     else:
@@ -153,24 +153,24 @@ def create_wallet(network='btctest', seed=None, children=1):
             network=network.upper(), seed=seed)
 
         # account level
-        wallet["private_key"] = my_wallet.private_key.get_key().decode()
-        wallet["public_key"] = my_wallet.public_key.get_key().decode()
-        wallet["xprivate_key"] = my_wallet.serialize_b58(private=True)
-        wallet["xpublic_key"] = my_wallet.serialize_b58(private=False)
-        wallet["address"] = my_wallet.to_address()
-        wallet["wif"] = my_wallet.export_to_wif()
+        wallet['private_key'] = my_wallet.private_key.get_key().decode()
+        wallet['public_key'] = my_wallet.public_key.get_key().decode()
+        wallet['xprivate_key'] = my_wallet.serialize_b58(private=True)
+        wallet['xpublic_key'] = my_wallet.serialize_b58(private=False)
+        wallet['address'] = my_wallet.to_address()
+        wallet['wif'] = my_wallet.export_to_wif()
 
         prime_child_wallet = my_wallet.get_child(0, is_prime=True)
-        wallet["xpublic_key_prime"] = prime_child_wallet.serialize_b58(private=False)
+        wallet['xpublic_key_prime'] = prime_child_wallet.serialize_b58(private=False)
 
         # prime children
         for child in range(children):
             child_wallet = my_wallet.get_child(child, is_prime=False, as_private=False)
-            wallet["children"].append({
-                "xpublic_key": child_wallet.serialize_b58(private=False),
-                "address": child_wallet.to_address(),
-                "path": "m/" + str(child),
-                "bip32_path": net.BIP32_PATH + str(child_wallet.child_number),
+            wallet['children'].append({
+                'xpublic_key': child_wallet.serialize_b58(private=False),
+                'address': child_wallet.to_address(),
+                'path': 'm/' + str(child),
+                'bip32_path': net.BIP32_PATH + str(child_wallet.child_number),
             })
 
     return wallet
