@@ -49,14 +49,13 @@ setup(
         "Programming Language :: Python :: 3.8",
     ],
     platforms = ['any'],
-    keywords='bitcoin, wallet, litecoin, hd-wallet, dogecoin, dashcoin, python',
+    keywords='bitcoin, wallet, litecoin, ethereum, hd-wallet, dogecoin, dashcoin, python',
     packages = find_packages(exclude=['contrib', 'docs', 'tests', 'demo', 'demos', 'examples']),
     package_data={'': ['AUTHORS', 'LICENSE']},
     install_requires=[
         'base58>=0.2.2',
         'ecdsa>=0.11',
         'six>=1.8.0',
-        'two1 @ https://github.com/Coinkudi/tw01/archive/main.zip#egg=two1',
         'pycryptodome>=3.6.6',
     ]
 )
