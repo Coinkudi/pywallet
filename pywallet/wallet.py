@@ -35,8 +35,8 @@ def create_address(network='btctest', xpub=None, child=None, path=0):
             acct_pub_key, '{change}/{index}'.format(change=path, index=child))
 
         res = {
-            'path': 'm/' + str(acct_pub_key.index) + '/' + str(keys[-1].index),
-            'bip32_path': 'm/44'/60'/0'/' + str(acct_pub_key.index) + '/' + str(keys[-1].index),
+            'path': "m/" + str(acct_pub_key.index) + "/" + str(keys[-1].index),
+            'bip32_path': "m/44'/60'/0'" + str(acct_pub_key.index) + "/" + str(keys[-1].index),
             'address': keys[-1].address()
         }
 
@@ -52,7 +52,7 @@ def create_address(network='btctest', xpub=None, child=None, path=0):
     net = get_network(network)
 
     return {
-        'path': 'm/' + str(wallet_obj.child_number) + '/' +str(child_wallet.child_number),
+        'path': "m/" + str(wallet_obj.child_number) + "/" +str(child_wallet.child_number),
         'bip32_path': net.BIP32_PATH + str(wallet_obj.child_number) + '/' +str(child_wallet.child_number),
         'address': child_wallet.to_address(),
         # 'xpublic_key': child_wallet.serialize_b58(private=False),
@@ -73,7 +73,7 @@ def get_network(network='btctest'):
         return DogecoinTestNet
     elif network in ('litecoin', 'ltc'):
         return LitecoinMainNet
-    elif network in ('litecoin_testnet' in 'ltctest'):
+    elif network in ('litecoin_testnet', 'ltctest'):
         return LitecoinTestNet
     elif network in ('bitcoin_cash', 'bch'):
         return BitcoinCashMainNet
@@ -119,7 +119,7 @@ def create_wallet(network='btctest', seed=None, children=1):
         wallet['coin'] = 'ETH'
 
         master_key = HDPrivateKey.master_key_from_mnemonic(seed)
-        root_keys = HDKey.from_path(master_key, 'm/44'/60'/0'')
+        root_keys = HDKey.from_path(master_key, "m/44'/60'/0'")
 
         acct_priv_key = root_keys[-1]
         acct_pub_key = acct_priv_key.public_key
@@ -144,8 +144,8 @@ def create_wallet(network='btctest', seed=None, children=1):
             wallet['children'].append({
                 'address': child_wallet['address'],
                 'xpublic_key': child_wallet['xpublic_key'],
-                'path': 'm/' + str(child),
-                'bip32_path': 'm/44'/60'/0'/' + str(child),
+                'path': "m/" + str(child),
+                'bip32_path': "m/44'/60'/0'/" + str(child),
             })
 
     else:
@@ -169,7 +169,7 @@ def create_wallet(network='btctest', seed=None, children=1):
             wallet['children'].append({
                 'xpublic_key': child_wallet.serialize_b58(private=False),
                 'address': child_wallet.to_address(),
-                'path': 'm/' + str(child),
+                'path': "m/" + str(child),
                 'bip32_path': net.BIP32_PATH + str(child_wallet.child_number),
             })
 

@@ -56,6 +56,7 @@ setup(
         'base58>=0.2.2',
         'ecdsa>=0.11',
         'six>=1.8.0',
+        'mnemonic>=0.16',
         'pycryptodome>=3.6.6',
     ]
 )
