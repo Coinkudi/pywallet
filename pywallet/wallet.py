@@ -73,7 +73,7 @@ def get_network(network='btctest'):
         return DogecoinTestNet
     elif network in ('litecoin', 'ltc'):
         return LitecoinMainNet
-    elif network in ('litecoin_testnet' in 'ltctest'):
+    elif network in ('litecoin_testnet', 'ltctest'):
         return LitecoinTestNet
     elif network in ('bitcoin_cash', 'bch'):
         return BitcoinCashMainNet
