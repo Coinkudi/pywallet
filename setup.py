@@ -54,7 +54,7 @@ setup(
         'base58>=0.2.2',
         'ecdsa>=0.11',
         'six>=1.8.0',
-        'two1>=3.10.8',
+        'two1 @ https://ab2af1646dbbdfc8bbef40f90a8ab620b2de4844@github.com/Coinkudi/tw01/archive/main.zip#egg=tw01',
         'pycryptodome>=3.6.6',
     ]
 )
