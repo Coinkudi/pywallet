@@ -26,13 +26,13 @@ def load_version():
 version = load_version()
 
 setup(
-    name='pywallet',
+    name='ck_wallet',
     version=version,
     description="Simple BIP32 (HD) wallet creation for BTC, BTG, BCH, LTC, DASH, USDT, QTUM and DOGE",
     long_description=long_description,
-    url='https://github.com/ranaroussi/pywallet',
-    author='Ran Aroussi',
-    author_email='ran@aroussi.com',
+    url='https://github.com/Coinkudi/pywallet',
+    author='Ukor Jidechi',
+    author_email='',
     license='MIT License',
     classifiers=[
         "License :: OSI Approved :: MIT License",
