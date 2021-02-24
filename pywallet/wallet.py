@@ -63,17 +63,17 @@ def create_address(network='btctest', xpub=None, child=None, path=0):
 def get_network(network='btctest'):
     network = network.lower()
 
-    if network in ('bitcoin_testnet', 'btctest'):
+    if network == 'btctest':
         return BitcoinTestNet
     elif network in ('bitcoin', 'btc'):
         return BitcoinMainNet
     elif network in ('dogecoin', 'doge'):
         return DogecoinMainNet
-    elif network in ('dogecoin_testnet', 'dogetest'):
+    elif network == 'dogetest':
         return DogecoinTestNet
     elif network in ('litecoin', 'ltc'):
         return LitecoinMainNet
-    elif network in ('litecoin_testnet', 'ltctest'):
+    elif network == 'ltctest':
         return LitecoinTestNet
     elif network in ('bitcoin_cash', 'bch'):
         return BitcoinCashMainNet
@@ -81,7 +81,7 @@ def get_network(network='btctest'):
         return BitcoinGoldMainNet
     elif network == 'dash':
         return DashMainNet
-    elif network in ('dash_testnet', 'dashtest'):
+    elif network == 'dashtest':
         return DashTestNet
     elif network == 'omni':
         return OmniMainNet
@@ -91,7 +91,7 @@ def get_network(network='btctest'):
         return FeathercoinMainNet
     elif network == 'qtum':
         return QtumMainNet
-    elif network in ('qtum_testnet', 'qtumtest'):
+    elif network == 'qtumtest':
         return QtumTestNet
 
     return BitcoinTestNet

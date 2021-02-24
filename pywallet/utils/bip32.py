@@ -65,7 +65,7 @@ class Wallet(object):
                  private_key=None,
                  public_pair=None,
                  public_key=None,
-                 network="bitcoin_testnet"):
+                 network="btctest"):
         """Construct a new BIP32 compliant wallet.
 
         You probably don't want to use this init methd. Instead use one
@@ -498,7 +498,7 @@ class Wallet(object):
         return ensure_str(base58.b58encode_check(network_hash160_bytes))
 
     @classmethod #@memoize
-    def deserialize(cls, key, network="bitcoin_testnet"):
+    def deserialize(cls, key, network="btctest"):
         """Load the ExtendedBip32Key from a hex key.
 
         The key consists of
@@ -578,7 +578,7 @@ class Wallet(object):
                    network=network)
 
     @classmethod
-    def from_master_secret(cls, seed, network="bitcoin_testnet"):
+    def from_master_secret(cls, seed, network="btctest"):
         """Generate a new PrivateKey from a secret key.
 
         :param seed: The key to use to generate this wallet. It may be a long
